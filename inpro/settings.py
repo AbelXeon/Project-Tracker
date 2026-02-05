@@ -5,9 +5,9 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-SECRET_KEY = 'django-insecure-dev-key-change-later'
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-dev-key-change-later')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = ['Project-Tracker.onrender.com', 'localhost']  # replace 'your-app-name' with your Render service name
 
 # APPLICATIONS
 INSTALLED_APPS = [
@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'tracker',
 ]
 
-# MIDDLEWARE (THIS WAS YOUR MAIN PROBLEM)
+# MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,7 +55,7 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = 'inpro.wsgi.application'
 
-# DATABASE (SQLite – no setup needed)
+# DATABASE (SQLite – can switch to PostgreSQL on Render later)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -63,7 +63,7 @@ DATABASES = {
     }
 }
 
-# PASSWORD VALIDATION (optional but fine to keep)
+# PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -86,7 +86,8 @@ USE_I18N = True
 USE_TZ = True
 
 # STATIC FILES
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # this is required for Render
 
 # DEFAULT PRIMARY KEY
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
