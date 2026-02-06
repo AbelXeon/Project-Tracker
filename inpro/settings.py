@@ -7,8 +7,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-dev-key-change-later')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['Project-Tracker.onrender.com', 'localhost']  # replace 'your-app-name' with your Render service name
+ALLOWED_HOSTS = [
+    "project-tracker-1-th2n.onrender.com",
+    ".onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://project-tracker-1-th2n.onrender.com",
+]
 # APPLICATIONS
 INSTALLED_APPS = [
     'django.contrib.admin',
